@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arjane Cabatingan - Backend Tester | Team BC</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .profile-container {
+            opacity: 0;
+            transform: translateX(20px);
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        .profile-image-container {
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: fadeIn 0.6s ease-out 0.3s forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .back-button {
+            transition: all 0.3s ease;
+        }
+        .back-button:hover {
+            transform: translateX(-5px);
+        }
+        .skill-badge {
+            transition: all 0.2s ease;
+        }
+        .skill-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen flex flex-col">
+        <!-- Navigation -->
+        <header class="navbar bg-white shadow-sm border-b border-gray-100">
+            <div class="container mx-auto px-4">
+                <div class="navbar-start">
+                    <a href="index.html" class="btn btn-ghost text-xl font-bold text-gray-800 back-button">
+                        <i class="fas fa-arrow-left mr-2"></i> Back to Team
+                    </a>
+                </div>
+                <div class="navbar-end">
+                    <a href="index.html" class="btn btn-ghost font-bold text-gray-800">Team BC</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Profile Content -->
+        <main class="flex-grow container mx-auto px-4 py-12">
+            <div class="flex flex-col lg:flex-row gap-12 items-center">
+                <!-- Profile Image (Right Side) -->
+                <div class="profile-image-container w-full lg:w-2/5 flex justify-center">
+                    <div class="relative">
+                        <div class="avatar">
+                            <div class="w-64 rounded-full ring-4 ring-red-500 ring-offset-4 ring-offset-white shadow-xl">
+                                <img src="assets/images/cab.jpg" alt="Arjane Cabatingan" />
+                            </div>
+                        </div>
+                        <div class="absolute -bottom-4 -right-4 bg-red-500 text-white px-4 py-2 rounded-full font-bold">
+                            Backend Tester
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Details (Left Side) -->
+                <div class="profile-container w-full lg:w-3/5">
+                    <h1 class="text-4xl font-bold text-gray-800 mb-2">Arjane Cabatingan</h1>
+                    <div class="w-20 h-1 bg-red-500 rounded mb-6"></div>
+                    
+                    <p class="text-lg text-gray-600 mb-8">
+                        Arjane ensures the quality and reliability of our backend systems through comprehensive testing and automation. 
+                        Her expertise in backend testing methodologies helps us deliver robust server-side solutions.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                            <h3 class="font-bold text-lg text-gray-800 mb-3 flex items-center">
+                                <i class="fas fa-graduation-cap mr-2 text-red-500"></i>
+                                Education
+                            </h3>
+                            <p class="text-gray-600">B.S. Information Technology, Benedicto College</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                            <h3 class="font-bold text-lg text-gray-800 mb-3 flex items-center">
+                                <i class="fas fa-briefcase mr-2 text-red-500"></i>
+                                Experience
+                            </h3>
+                            <p class="text-gray-600">Backend QA Engineer at CloudTech, Test Automation Specialist at DeployPro</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h3 class="font-bold text-xl text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-cogs mr-2 text-red-500"></i>
+                            Skills & Expertise
+                        </h3>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="skill-badge badge badge-lg badge-outline px-4 py-3" style="border-color: #ef4444; color: #ef4444;">Jasmine</div>
+                            <div class="skill-badge badge badge-lg badge-outline px-4 py-3" style="border-color: #ef4444; color: #ef4444;">Karma</div>
+                            <div class="skill-badge badge badge-lg badge-outline px-4 py-3" style="border-color: #ef4444; color: #ef4444;">Test Automation</div>
+                            <div class="skill-badge badge badge-lg badge-outline px-4 py-3" style="border-color: #ef4444; color: #ef4444;">API Testing</div>
+                            <div class="skill-badge badge badge-lg badge-outline px-4 py-3" style="border-color: #ef4444; color: #ef4444;">Performance Testing</div>
+                            <div class="skill-badge badge badge-lg badge-outline px-4 py-3" style="border-color: #ef4444; color: #ef4444;">Load Testing</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <h3 class="font-bold text-lg text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-envelope mr-2 text-red-500"></i>
+                            Contact
+                        </h3>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="mailto:arjanecabz123@gmail.com" class="btn btn-outline" style="border-color: #ef4444; color: #ef4444;">
+                                <i class="fas fa-envelope mr-2"></i> Email
+                            </a>
+                            <a href="#" class="btn btn-outline">
+                                <i class="fab fa-linkedin mr-2"></i> LinkedIn
+                            </a>
+                            <a href="#" class="btn btn-outline">
+                                <i class="fab fa-github mr-2"></i> GitHub
+                            </a>
+                            <a href="#" class="btn btn-outline" style="border-color: #ef4444; color: #ef4444;">
+                                <i class="fas fa-globe mr-2"></i> Website
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer p-10 bg-gray-100 text-gray-700 border-t border-gray-200 mt-12">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <p class="font-bold text-xl text-gray-800">Team BC</p>
+                        <p class="text-gray-600">Professional showcase of our backend development expertise</p>
+                    </div>
+                    <div>
+                        <a href="index.html" class="btn btn-outline" style="border-color: #ef4444; color: #ef4444;">Back to Team</a>
+                    </div>
+                </div>
+                <div class="text-center mt-8 text-gray-500">
+                    <p>© 2025 Team BC. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

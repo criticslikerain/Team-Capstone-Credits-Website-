@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Effects Visualization</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .feature-card h2 {
+            font-size: 1.5rem;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .feature-icon {
+            font-size: 1.8rem;
+        }
+        .visualization {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+        .viz-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        .viz-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            width: 200px;
+            transition: all 0.3s ease;
+        }
+        .viz-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+        .viz-graphic {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            position: relative;
+            background: conic-gradient(
+                #ff0000, #ff8000, #ffff00, 
+                #80ff00, #00ff00, #00ff80, 
+                #00ffff, #0080ff, #0000ff, 
+                #8000ff, #ff00ff, #ff0080, 
+                #ff0000
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        .viz-graphic.sun::before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffff00, #ffa500);
+        }
+        .viz-graphic.ring::before {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 10px solid #1e90ff;
+            box-shadow: 0 0 15px rgba(30, 144, 255, 0.7);
+        }
+        .viz-graphic.ring::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #1e90ff, #00008b);
+        }
+        .viz-graphic.particle::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ff4500;
+            box-shadow: 0 0 10px #ff4500, 20px 20px 0 0 #32cd32, -20px -20px 0 0 #1e90ff;
+        }
+        .code-block {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        .tag {
+            display: inline-block;
+            background: rgba(106, 90, 205, 0.3);
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin: 0.2rem;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>3D Effects Visualization</h1>
+            <p class="subtitle">Enhanced Saturn-like Rings Implementation for Team BC Project</p>
+        </header>
+
+        <section class="features">
+            <div class="feature-card">
+                <h2><span class="feature-icon">🌟</span> Galaxy Background</h2>
+                <p>Implementation of a dynamic starfield with a yellow sun that follows cursor movement. Added Saturn-like blue rings around the sun for enhanced visual appeal.</p>
+                <div class="tags">
+                    <span class="tag">Three.js</span>
+                    <span class="tag">Starfield</span>
+                    <span class="tag">Cursor Tracking</span>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <h2><span class="feature-icon">⭕</span> Saturn-like Rings</h2>
+                <p>Added dual-ring system with blue color scheme that complements the existing yellow sun. Rings rotate independently for a dynamic effect.</p>
+                <div class="tags">
+                    <span class="tag">Ring Geometry</span>
+                    <span class="tag">Blue Color Scheme</span>
+                    <span class="tag">Independent Rotation</span>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <h2><span class="feature-icon">✨</span> Particle Effects</h2>
+                <p>Advanced particle sphere with shader effects enhanced with Saturn-like rings. Features pulsing animation and mouse interaction.</p>
+                <div class="tags">
+                    <span class="tag">Particle System</span>
+                    <span class="tag">Shader Materials</span>
+                    <span class="tag">Mouse Interaction</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="visualization">
+            <h2>Visual Representation</h2>
+            <p>Below is a conceptual visualization of the enhanced 3D effects:</p>
+            
+            <div class="viz-container">
+                <div class="viz-item">
+                    <div class="viz-graphic sun"></div>
+                    <h3>Galaxy Sun</h3>
+                    <p>Yellow sun with<br>blue rings</p>
+                </div>
+                
+                <div class="viz-item">
+                    <div class="viz-graphic ring"></div>
+                    <h3>Saturn-like Ring</h3>
+                    <p>Dual ring system<br>with tilt effect</p>
+                </div>
+                
+                <div class="viz-item">
+                    <div class="viz-graphic particle"></div>
+                    <h3>Particle Sphere</h3>
+                    <p>With integrated<br>ring structure</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="code-block">
+            <h3>Implementation Highlights</h3>
+            <pre>// Galaxy Background Enhancement
+const ringGroup = new THREE.Group();
+scene.add(ringGroup);
+
+// Main ring
+const ringGeometry = new THREE.RingGeometry(12, 18, 64);
+const ringMaterial = new THREE.MeshBasicMaterial({
+    color: 0x1e90ff, // Dodger blue
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 0.8
+});
+
+// Secondary ring
+const innerRingGeometry = new THREE.RingGeometry(10, 11, 32);
+const innerRingMaterial = new THREE.MeshBasicMaterial({
+    color: 0x87ceeb, // Sky blue
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 0.4
+});
+
+// Animation
+ringGroup.rotation.z += 0.001;
+innerRing.rotation.z += 0.002;</pre>
+        </section>
+
+        <section class="visualization">
+            <h2>Benefits of Implementation</h2>
+            <div class="viz-container">
+                <div class="viz-item">
+                    <h3>🎯 Visual Appeal</h3>
+                    <p>Enhanced aesthetics with Saturn-like rings that complement existing elements</p>
+                </div>
+                
+                <div class="viz-item">
+                    <h3>⚡ Performance</h3>
+                    <p>Optimized rendering with minimal impact on frame rate</p>
+                </div>
+                
+                <div class="viz-item">
+                    <h3>🔄 Consistency</h3>
+                    <p>Cohesive design language applied across both 3D effects</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Team BC | Enhanced 3D Visualization Implementation</p>
+            <p>Benedicto College IT Students Project</p>
+        </footer>
+    </div>
+</body>
+</html>

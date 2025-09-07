@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team BC | Credits</title>
+    <!-- DaisyUI and Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Three.js for 3D sun background -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background: transparent;
+        }
+        
+        
+        
+        /* Ensure content is visible over 3D background */
+        header, section, footer {
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Hero section adjustments for 3D sun */
+        #home .hero-content {
+            flex-direction: row !important;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 2rem;
+        }
+        
+        /* Semi-transparent backgrounds for better readability */
+        .navbar, .card, .footer {
+            background-color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        /* Dark mode semi-transparent backgrounds */
+        html[data-theme="dark"] .navbar,
+        html[data-theme="dark"] .card,
+        html[data-theme="dark"] .footer {
+            background-color: rgba(26, 32, 44, 0.9) !important;
+        }
+        
+        html[data-theme="dark"] .bg-gray-50 {
+            background-color: rgba(45, 55, 72, 0.9) !important;
+        }
+        
+        html[data-theme="dark"] .bg-white {
+            background-color: rgba(45, 55, 72, 0.9) !important;
+        }
+        .profile-card {
+            transition: all 0.3s ease;
+            will-change: transform;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 15px rgba(0, 0, 0, 0.05);
+        }
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .profile-image {
+            transition: all 0.5s ease;
+            overflow: hidden;
+            will-change: transform;
+            padding-top: 1.5rem;
+        }
+        .profile-card:hover .profile-image {
+            transform: scale(1.03);
+        }
+        .theme-toggle {
+            transition: all 0.3s ease;
+        }
+        .team-member-detail {
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        .team-member-detail.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        /* Starry background for dark mode */
+        .stars-container {
+            display: none;
+        }
+        
+        html[data-theme="dark"] .stars-container {
+            display: block;
+        }
+        
+        .stars, .stars2, .stars3 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .stars {
+            background: transparent;
+        }
+        
+        .stars2, .stars3 {
+            background: transparent;
+        }
+        
+        .stars:before, .stars2:before, .stars3:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            box-shadow: 
+                0 0 1px 0 rgba(255, 255, 255, 0.8),
+                50px 50px 1px 0 rgba(255, 255, 255, 0.8),
+                100px 100px 1px 0 rgba(255, 255, 255, 0.8),
+                150px 150px 1px 0 rgba(255, 255, 255, 0.8),
+                200px 200px 1px 0 rgba(255, 255, 255, 0.8),
+                250px 250px 1px 0 rgba(255, 255, 255, 0.8),
+                300px 300px 1px 0 rgba(255, 255, 255, 0.8),
+                350px 350px 1px 0 rgba(255, 255, 255, 0.8),
+                400px 400px 1px 0 rgba(255, 255, 255, 0.8),
+                450px 450px 1px 0 rgba(255, 255, 255, 0.8),
+                500px 500px 1px 0 rgba(255, 255, 255, 0.8),
+                550px 550px 1px 0 rgba(255, 255, 255, 0.8),
+                600px 600px 1px 0 rgba(255, 255, 255, 0.8),
+                650px 650px 1px 0 rgba(255, 255, 255, 0.8),
+                700px 700px 1px 0 rgba(255, 255, 255, 0.8),
+                750px 750px 1px 0 rgba(255, 255, 255, 0.8),
+                800px 800px 1px 0 rgba(255, 255, 255, 0.8),
+                850px 850px 1px 0 rgba(255, 255, 255, 0.8),
+                900px 900px 1px 0 rgba(255, 255, 255, 0.8),
+                950px 950px 1px 0 rgba(255, 255, 255, 0.8),
+                25px 25px 1px 0 rgba(255, 255, 255, 0.6),
+                75px 75px 1px 0 rgba(255, 255, 255, 0.6),
+                125px 125px 1px 0 rgba(255, 255, 255, 0.6),
+                175px 175px 1px 0 rgba(255, 255, 255, 0.6),
+                225px 225px 1px 0 rgba(255, 255, 255, 0.6),
+                275px 275px 1px 0 rgba(255, 255, 255, 0.6),
+                325px 325px 1px 0 rgba(255, 255, 255, 0.6),
+                375px 375px 1px 0 rgba(255, 255, 255, 0.6),
+                425px 425px 1px 0 rgba(255, 255, 255, 0.6),
+                475px 475px 1px 0 rgba(255, 255, 255, 0.6),
+                525px 525px 1px 0 rgba(255, 255, 255, 0.6),
+                575px 575px 1px 0 rgba(255, 255, 255, 0.6),
+                625px 625px 1px 0 rgba(255, 255, 255, 0.6),
+                675px 675px 1px 0 rgba(255, 255, 255, 0.6),
+                725px 725px 1px 0 rgba(255, 255, 255, 0.6),
+                775px 775px 1px 0 rgba(255, 255, 255, 0.6),
+                825px 825px 1px 0 rgba(255, 255, 255, 0.6),
+                875px 875px 1px 0 rgba(255, 255, 255, 0.6),
+                925px 925px 1px 0 rgba(255, 255, 255, 0.6),
+                975px 975px 1px 0 rgba(255, 255, 255, 0.6);
+            animation: animStar 50s linear infinite;
+        }
+        
+        .stars2:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            box-shadow: 
+                25px 0 1px 0 rgba(255, 255, 255, 0.6),
+                75px 50px 1px 0 rgba(255, 255, 255, 0.6),
+                125px 100px 1px 0 rgba(255, 255, 255, 0.6),
+                175px 150px 1px 0 rgba(255, 255, 255, 0.6),
+                225px 200px 1px 0 rgba(255, 255, 255, 0.6),
+                275px 250px 1px 0 rgba(255, 255, 255, 0.6),
+                325px 300px 1px 0 rgba(255, 255, 255, 0.6),
+                375px 350px 1px 0 rgba(255, 255, 255, 0.6),
+                425px 400px 1px 0 rgba(255, 255, 255, 0.6),
+                475px 450px 1px 0 rgba(255, 255, 255, 0.6),
+                525px 500px 1px 0 rgba(255, 255, 255, 0.6),
+                575px 550px 1px 0 rgba(255, 255, 255, 0.6),
+                625px 600px 1px 0 rgba(255, 255, 255, 0.6),
+                675px 650px 1px 0 rgba(255, 255, 255, 0.6),
+                725px 700px 1px 0 rgba(255, 255, 255, 0.6),
+                775px 750px 1px 0 rgba(255, 255, 255, 0.6),
+                825px 800px 1px 0 rgba(255, 255, 255, 0.6),
+                875px 850px 1px 0 rgba(255, 255, 255, 0.6),
+                925px 900px 1px 0 rgba(255, 255, 255, 0.6),
+                975px 950px 1px 0 rgba(255, 255, 255, 0.6),
+                0 25px 1px 0 rgba(255, 255, 255, 0.5),
+                50px 75px 1px 0 rgba(255, 255, 255, 0.5),
+                100px 125px 1px 0 rgba(255, 255, 255, 0.5),
+                150px 175px 1px 0 rgba(255, 255, 255, 0.5),
+                200px 225px 1px 0 rgba(255, 255, 255, 0.5),
+                250px 275px 1px 0 rgba(255, 255, 255, 0.5),
+                300px 325px 1px 0 rgba(255, 255, 255, 0.5),
+                350px 375px 1px 0 rgba(255, 255, 255, 0.5),
+                400px 425px 1px 0 rgba(255, 255, 255, 0.5),
+                450px 475px 1px 0 rgba(255, 255, 255, 0.5),
+                500px 525px 1px 0 rgba(255, 255, 255, 0.5),
+                550px 575px 1px 0 rgba(255, 255, 255, 0.5),
+                600px 625px 1px 0 rgba(255, 255, 255, 0.5),
+                650px 675px 1px 0 rgba(255, 255, 255, 0.5),
+                700px 725px 1px 0 rgba(255, 255, 255, 0.5),
+                750px 775px 1px 0 rgba(255, 255, 255, 0.5),
+                800px 825px 1px 0 rgba(255, 255, 255, 0.5),
+                850px 875px 1px 0 rgba(255, 255, 255, 0.5),
+                900px 925px 1px 0 rgba(255, 255, 255, 0.5),
+                950px 975px 1px 0 rgba(255, 255, 255, 0.5);
+            animation: animStar 100s linear infinite;
+        }
+        
+        .stars3:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            box-shadow: 
+                12px 12px 1px 0 rgba(255, 255, 255, 0.4),
+                62px 62px 1px 0 rgba(255, 255, 255, 0.4),
+                112px 112px 1px 0 rgba(255, 255, 255, 0.4),
+                162px 162px 1px 0 rgba(255, 255, 255, 0.4),
+                212px 212px 1px 0 rgba(255, 255, 255, 0.4),
+                262px 262px 1px 0 rgba(255, 255, 255, 0.4),
+                312px 312px 1px 0 rgba(255, 255, 255, 0.4),
+                362px 362px 1px 0 rgba(255, 255, 255, 0.4),
+                412px 412px 1px 0 rgba(255, 255, 255, 0.4),
+                462px 462px 1px 0 rgba(255, 255, 255, 0.4),
+                512px 512px 1px 0 rgba(255, 255, 255, 0.4),
+                562px 562px 1px 0 rgba(255, 255, 255, 0.4),
+                612px 612px 1px 0 rgba(255, 255, 255, 0.4),
+                662px 662px 1px 0 rgba(255, 255, 255, 0.4),
+                712px 712px 1px 0 rgba(255, 255, 255, 0.4),
+                762px 762px 1px 0 rgba(255, 255, 255, 0.4),
+                812px 812px 1px 0 rgba(255, 255, 255, 0.4),
+                862px 862px 1px 0 rgba(255, 255, 255, 0.4),
+                912px 912px 1px 0 rgba(255, 255, 255, 0.4),
+                962px 962px 1px 0 rgba(255, 255, 255, 0.4),
+                37px 37px 1px 0 rgba(255, 255, 255, 0.3),
+                87px 87px 1px 0 rgba(255, 255, 255, 0.3),
+                137px 137px 1px 0 rgba(255, 255, 255, 0.3),
+                187px 187px 1px 0 rgba(255, 255, 255, 0.3),
+                237px 237px 1px 0 rgba(255, 255, 255, 0.3),
+                287px 287px 1px 0 rgba(255, 255, 255, 0.3),
+                337px 337px 1px 0 rgba(255, 255, 255, 0.3),
+                387px 387px 1px 0 rgba(255, 255, 255, 0.3),
+                437px 437px 1px 0 rgba(255, 255, 255, 0.3),
+                487px 487px 1px 0 rgba(255, 255, 255, 0.3),
+                537px 537px 1px 0 rgba(255, 255, 255, 0.3),
+                587px 587px 1px 0 rgba(255, 255, 255, 0.3),
+                637px 637px 1px 0 rgba(255, 255, 255, 0.3),
+                687px 687px 1px 0 rgba(255, 255, 255, 0.3),
+                737px 737px 1px 0 rgba(255, 255, 255, 0.3),
+                787px 787px 1px 0 rgba(255, 255, 255, 0.3),
+                837px 837px 1px 0 rgba(255, 255, 255, 0.3),
+                887px 887px 1px 0 rgba(255, 255, 255, 0.3),
+                937px 937px 1px 0 rgba(255, 255, 255, 0.3),
+                987px 987px 1px 0 rgba(255, 255, 255, 0.3);
+            animation: animStar 150s linear infinite;
+        }
+        
+        /* Twinkling animation for stars */
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+        
+        /* Apply twinkling to some stars */
+        .stars:before {
+            animation: animStar 50s linear infinite, twinkle 3s ease-in-out infinite;
+        }
+        
+        .stars2:before {
+            animation: animStar 100s linear infinite, twinkle 4s ease-in-out infinite;
+        }
+        
+        .stars3:before {
+            animation: animStar 150s linear infinite, twinkle 5s ease-in-out infinite;
+        }
+        
+        @keyframes animStar {
+            from {
+                transform: translateY(0px);
+            }
+            to {
+                transform: translateY(-1000px);
+            }
+        }
+        /* Fade-in animation for sections */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+        }
+        
+        html[data-theme="dark"] .fade-in {
+            background-color: rgba(26, 32, 44, 0.85);
+        }
+        
+        .fade-in-delay-1 {
+            animation: fadeIn 0.8s ease-out 0.1s forwards;
+            opacity: 0;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+        }
+        
+        html[data-theme="dark"] .fade-in-delay-1 {
+            background-color: rgba(26, 32, 44, 0.85);
+        }
+        
+        .fade-in-delay-2 {
+            animation: fadeIn 0.8s ease-out 0.2s forwards;
+            opacity: 0;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+        }
+        
+        html[data-theme="dark"] .fade-in-delay-2 {
+            background-color: rgba(26, 32, 44, 0.85);
+        }
+        
+        .fade-in-delay-3 {
+            animation: fadeIn 0.8s ease-out 0.3s forwards;
+            opacity: 0;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+        }
+        
+        html[data-theme="dark"] .fade-in-delay-3 {
+            background-color: rgba(26, 32, 44, 0.85);
+        }
+        /* Staggered animation for profile cards */
+        .profile-card {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .profile-card.appear {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .profile-card:hover {
+                transform: none;
+            }
+            .profile-card:hover .profile-image {
+                transform: none;
+            }
+        }
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .profile-card:hover {
+                transform: none !important;
+            }
+            .profile-card:hover .profile-image {
+                transform: none !important;
+            }
+        }
+        
+        /* Dark mode styles */
+        html[data-theme="dark"] body,
+        html[data-theme="dark"] .navbar,
+        html[data-theme="dark"] .card,
+        html[data-theme="dark"] .bg-white,
+        html[data-theme="dark"] .footer {
+            background-color: #1a202c;
+            color: #e2e8f0;
+        }
+        
+        html[data-theme="dark"] .text-gray-800 {
+            color: #e2e8f0;
+        }
+        
+        html[data-theme="dark"] .text-gray-600 {
+            color: #cbd5e0;
+        }
+        
+        html[data-theme="dark"] .bg-gray-50 {
+            background-color: #2d3748;
+        }
+        
+        html[data-theme="dark"] .bg-gray-100 {
+            background-color: #2d3748;
+        }
+        
+        html[data-theme="dark"] .border-gray-100,
+        html[data-theme="dark"] .border-gray-200 {
+            border-color: #4a5568;
+        }
+        
+        html[data-theme="dark"] .text-gray-700 {
+            color: #cbd5e0;
+        }
+        
+        html[data-theme="dark"] .hero {
+            background: linear-gradient(to bottom right, #2d3748, #1a202c);
+        }
+        
+        html[data-theme="dark"] .btn-ghost {
+            color: #e2e8f0;
+        }
+        
+        html[data-theme="dark"] .btn-outline {
+            border-color: #4a5568;
+            color: #e2e8f0;
+        }
+        
+        html[data-theme="dark"] a:hover {
+            color: #63b3ed;
+        }
+        
+        html[data-theme="dark"] .dropdown-content {
+            background-color: #2d3748;
+            border-color: #4a5568;
+        }
+        
+        html[data-theme="dark"] .menu li > a:hover {
+            background-color: #4a5568;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+    <!-- Navigation -->
+    <header class="navbar bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-50 border-b border-gray-100 dark:border-gray-700">
+        <div class="navbar-start">
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-white dark:bg-gray-800 rounded-box w-52 border border-gray-200 dark:border-gray-700">
+                    <li><a href="#home" class="text-gray-700 hover:text-blue-600">Home</a></li>
+                    <li><a href="#team" class="text-gray-700 hover:text-blue-600">Team</a></li>
+                    <li><a href="#about" class="text-gray-700 hover:text-blue-600">About</a></li>
+                </ul>
+            </div>
+            <a href="../index.html" class="btn btn-ghost font-bold text-gray-800">Team BC</a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1">
+                <li><a href="#home" class="text-gray-700 hover:text-blue-600">Home</a></li>
+                <li><a href="#team" class="text-gray-700 hover:text-blue-600">Team</a></li>
+                <li><a href="#about" class="text-gray-700 hover:text-blue-600">About</a></li>
+            </ul>
+        </div>
+        <div class="navbar-end">
+            <button id="theme-toggle" class="theme-toggle btn btn-ghost btn-circle text-gray-700 hover:text-blue-600">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero min-h-screen text-gray-800 dark:text-gray-100">
+        <div class="hero-content text-left">
+            <div class="max-w-xl fade-in bg-white/80 dark:bg-gray-800/80 p-8 rounded-2xl backdrop-blur-sm">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">Team BC</h1>
+                <p class="py-6 text-xl opacity-90">We are the IT Students of Benedicto College.</p>
+                <div class="flex flex-wrap gap-4 mt-8">
+                    <a href="#team" class="btn btn-outline btn-primary btn-lg">Meet Our Team</a>
+                    <a href="#about" class="btn btn-ghost btn-lg">Our Backend Approach</a>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#team" class="text-gray-800 dark:text-gray-100">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-20 relative">
+        <!-- Starry background for dark mode -->
+        <div class="stars-container absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="stars"></div>
+            <div class="stars2"></div>
+            <div class="stars3"></div>
+            <!-- Gradient overlay for depth -->
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-gray-900 opacity-70"></div>
+        </div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold mb-4 text-gray-800 dark:text-gray-100">Meet Our Backend Team</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mb-6 rounded"></div>
+                <p class="text-lg max-w-2xl mx-auto text-gray-600 dark:text-gray-300">We are a specialized team with expertise in server-side development, databases, and cloud infrastructure. We are students of Benedicto College.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-20">
+                <!-- Profile 1 -->
+                <div class="profile-card card bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 rounded-lg border border-gray-100 dark:border-gray-700">
+                    <figure class="px-6 pt-8 profile-image">
+                        <div class="avatar">
+                            <div class="w-32 mx-auto rounded-full ring ring-blue-500 ring-offset-4 ring-offset-white dark:ring-offset-gray-800">
+                                <img src="assets/images/nat.jpg" alt="Nathaniel P. Inocando" class="object-cover" />
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="card-body items-center text-center px-6 pb-8">
+                        <h2 class="card-title text-gray-800 dark:text-gray-100 text-xl font-bold mb-1">Nathaniel P. Inocando</h2>
+                        <span class="badge badge-outline badge-primary mb-3 py-2 px-3 rounded-full text-xs font-medium">Project Lead</span>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Full-stack developer with expertise in React and Node.js</p>
+                        <div class="flex justify-center space-x-3 mb-4">
+                            <a href="#" class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                        <div class="card-actions justify-center w-full">
+                            <a href="./nathaniel-inocando.html" class="btn btn-outline btn-primary btn-sm rounded-full w-full py-2">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile 2 -->
+                <div class="profile-card card bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 rounded-lg border border-gray-100 dark:border-gray-700">
+                    <figure class="px-6 pt-8 profile-image">
+                        <div class="avatar">
+                            <div class="w-32 mx-auto rounded-full ring ring-purple-500 ring-offset-4 ring-offset-white dark:ring-offset-gray-800">
+                                <img src="assets/images/ren.jpg" alt="Renfred Cornejo" class="object-cover" />
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="card-body items-center text-center px-6 pb-8">
+                        <h2 class="card-title text-gray-800 dark:text-gray-100 text-xl font-bold mb-1">Renfred Cornejo</h2>
+                        <span class="badge badge-outline badge-secondary mb-3 py-2 px-3 rounded-full text-xs font-medium">Project Manager</span>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Creative designer focused on user-centered design solutions</p>
+                        <div class="flex justify-center space-x-3 mb-4">
+                            <a href="#" class="text-gray-500 hover:text-purple-600 dark:text-gray-400 dark:hover:text-purple-400">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-purple-600 dark:text-gray-400 dark:hover:text-purple-400">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-purple-600 dark:text-gray-400 dark:hover:text-purple-400">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                        <div class="card-actions justify-center w-full">
+                            <a href="./renfred-cornejo.html" class="btn btn-outline btn-secondary btn-sm rounded-full w-full py-2">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile 3 -->
+                <div class="profile-card card bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 rounded-lg border border-gray-100 dark:border-gray-700">
+                    <figure class="px-6 pt-8 profile-image">
+                        <div class="avatar">
+                            <div class="w-32 mx-auto rounded-full ring ring-green-500 ring-offset-4 ring-offset-white dark:ring-offset-gray-800">
+                                <img src="assets/images/marneilx2.jpg" alt="Marneil Cabahug" class="object-cover" />
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="card-body items-center text-center px-6 pb-8">
+                        <h2 class="card-title text-gray-800 dark:text-gray-100 text-xl font-bold mb-1">Marneil Cabahug</h2>
+                        <span class="badge badge-outline badge-accent mb-3 py-2 px-3 rounded-full text-xs font-medium">DevOps Engineer</span>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Database specialist with experience in cloud infrastructure</p>
+                        <div class="flex justify-center space-x-3 mb-4">
+                            <a href="#" class="text-gray-500 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                        <div class="card-actions justify-center w-full">
+                            <a href="./marneil-cabahug.html" class="btn btn-outline btn-accent btn-sm rounded-full w-full py-2">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile 4 -->
+                <div class="profile-card card bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 rounded-lg border border-gray-100 dark:border-gray-700">
+                    <figure class="px-6 pt-8 profile-image">
+                        <div class="avatar">
+                            <div class="w-32 mx-auto rounded-full ring ring-yellow-500 ring-offset-4 ring-offset-white dark:ring-offset-gray-800">
+                                <img src="assets/images/irag.jpg" alt="Aleson Irag" class="object-cover" />
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="card-body items-center text-center px-6 pb-8">
+                        <h2 class="card-title text-gray-800 dark:text-gray-100 text-xl font-bold mb-1">Aleson Irag</h2>
+                        <span class="badge badge-outline badge-neutral mb-3 py-2 px-3 rounded-full text-xs font-medium">Frontend Developer</span>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">JavaScript expert specializing in responsive web applications</p>
+                        <div class="flex justify-center space-x-3 mb-4">
+                            <a href="#" class="text-gray-500 hover:text-yellow-600 dark:text-gray-400 dark:hover:text-yellow-400">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-yellow-600 dark:text-gray-400 dark:hover:text-yellow-400">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-yellow-600 dark:text-gray-400 dark:hover:text-yellow-400">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                        <div class="card-actions justify-center w-full">
+                            <a href="./aleson-irag.html" class="btn btn-outline btn-neutral btn-sm rounded-full w-full py-2">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile 5 -->
+                <div class="profile-card card bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 rounded-lg border border-gray-100 dark:border-gray-700">
+                    <figure class="px-6 pt-8 profile-image">
+                        <div class="avatar">
+                            <div class="w-32 mx-auto rounded-full ring ring-red-500 ring-offset-4 ring-offset-white dark:ring-offset-gray-800">
+                                <img src="assets/images/cab.jpg" alt="Arjane Cabatingan" class="object-cover" />
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="card-body items-center text-center px-6 pb-8">
+                        <h2 class="card-title text-gray-800 dark:text-gray-100 text-xl font-bold mb-1">Arjane Cabatingan</h2>
+                        <span class="badge badge-outline badge-info mb-3 py-2 px-3 rounded-full text-xs font-medium">Assistant Project Manager and Tester</span>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">CI/CD pipeline specialist with security focus</p>
+                        <div class="flex justify-center space-x-3 mb-4">
+                            <a href="#" class="text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                        <div class="card-actions justify-center w-full">
+                            <a href="./arjane-cabatingan.html" class="btn btn-outline btn-info btn-sm rounded-full w-full py-2">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile 6 -->
+                <div class="profile-card card bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 rounded-lg border border-gray-100 dark:border-gray-700">
+                    <figure class="px-6 pt-8 profile-image">
+                        <div class="avatar">
+                            <div class="w-32 mx-auto rounded-full ring ring-teal-500 ring-offset-4 ring-offset-white dark:ring-offset-gray-800">
+                                <img src="assets/images/jev.jpg" alt="Jevy Castro" class="object-cover" />
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="card-body items-center text-center px-6 pb-8">
+                        <h2 class="card-title text-gray-800 dark:text-gray-100 text-xl font-bold mb-1">Jevy Castro</h2>
+                        <span class="badge badge-outline badge-success mb-3 py-2 px-3 rounded-full text-xs font-medium">Researcher</span>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Testing automation expert ensuring product quality</p>
+                        <div class="flex justify-center space-x-3 mb-4">
+                            <a href="#" class="text-gray-500 hover:text-teal-600 dark:text-gray-400 dark:hover:text-teal-400">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-teal-600 dark:text-gray-400 dark:hover:text-teal-400">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-teal-600 dark:text-gray-400 dark:hover:text-teal-400">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                        <div class="card-actions justify-center w-full">
+                            <a href="./jevy-castro.html" class="btn btn-outline btn-success btn-sm rounded-full w-full py-2">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold mb-4 text-gray-800 dark:text-gray-100">Our Capstone Journey</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mb-6 rounded"></div>
+                <p class="text-lg max-w-2xl mx-auto text-gray-600 dark:text-gray-300">Learn more about our team's journey in developing robust backend solutions and server-side technologies.</p>
+            </div>
+            
+            <div class="max-w-6xl mx-auto">
+                <div class="card shadow-md rounded-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+                    <div class="card-body">
+                        <h3 class="card-title text-2xl text-gray-800 dark:text-gray-100 text-center mb-8">Our Capstone Journey</h3>
+                        <p class="py-4 text-gray-600 dark:text-gray-300 text-center max-w-3xl mx-auto">As a team of dedicated developers, we bring together our expertise in server-side technologies, databases, and cloud infrastructure to create robust, scalable solutions that power modern applications. Our focus on performance, security, and reliability ensures that every project meets the highest standards. We are students of Benedicto College.</p>
+                        
+                        <!-- Laptop Visualization -->
+                        <div class="flex justify-center my-12">
+                            <div class="relative">
+                                <!-- Even Larger Laptop Base with increased width and height -->
+                                <div class="w-[900px] h-[600px] bg-gray-800 rounded-lg shadow-2xl mx-auto relative">
+                                    <!-- Screen Bezel -->
+                                    <div class="absolute top-5 left-5 right-5 bottom-14 bg-gray-900 rounded-md overflow-hidden">
+                                        <!-- Screen Content with Stock Photo -->
+                                        <img src="assets/images/1.PNG" alt="Capstone Project" class="w-full h-full object-cover">
+                                    </div>
+                                    <!-- Monitor Buttons at Bottom -->
+                                    <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-3">
+                                        <button class="w-4 h-4 rounded-full bg-red-500 hover:bg-red-400 transition-all duration-200"></button>
+                                        <button class="w-4 h-4 rounded-full bg-yellow-500 hover:bg-yellow-400 transition-all duration-200"></button>
+                                        <button class="w-4 h-4 rounded-full bg-green-500 hover:bg-green-400 transition-all duration-200"></button>
+                                    </div>
+                                </div>
+                                <!-- Laptop Base Part -->
+                                <div class="w-[950px] h-10 bg-gray-900 rounded-b-lg mx-auto mt-2 shadow-lg"></div>
+                                <!-- Laptop Base Reflection -->
+                                <div class="w-[950px] h-5 bg-gradient-to-b from-gray-800 to-gray-900 rounded-b-lg mx-auto"></div>
+                                <!-- Trackpad -->
+                                <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 w-40 h-6 bg-gray-700 rounded-full"></div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Footer -->
+    <footer class="footer p-10 text-gray-700 border-t border-gray-200 dark:text-gray-300 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+        <div>
+            <p class="font-bold text-2xl text-gray-800 dark:text-gray-100">Team BC</p>
+            <p class="text-gray-600 dark:text-gray-400">Professional showcase of our backend development expertise. We are students of Benedicto College.</p>
+            <p class="mt-2 text-gray-500 dark:text-gray-400">© 2025 Team BC. All rights reserved.</p>
+        </div> 
+        <div>
+            <span class="footer-title text-gray-800 dark:text-gray-200">Connect</span> 
+            <div class="grid grid-flow-col gap-4">
+                <a href="#" class="link link-hover text-gray-600 hover:text-blue-600 dark:text-gray-400"><i class="fab fa-github text-2xl"></i></a> 
+                <a href="#" class="link link-hover text-gray-600 hover:text-blue-600 dark:text-gray-400"><i class="fab fa-linkedin text-2xl"></i></a>
+                <a href="#" class="link link-hover text-gray-600 hover:text-blue-600 dark:text-gray-400"><i class="fab fa-twitter text-2xl"></i></a>
+            </div>
+        </div>
+        <div>
+            <span class="footer-title text-gray-800 dark:text-gray-200">Contact</span> 
+            <a class="link link-hover text-gray-600 hover:text-blue-600 dark:text-gray-400">benedictocollege.library@gmail.com</a>
+            <a class="link link-hover text-gray-600 hover:text-blue-600 dark:text-gray-400">+63 (32) 231 7111</a>
+        </div>
+    </footer>
+
+    <!-- Galaxy Background Script -->
+    <script src="./js/galaxy-background.js"></script>
+    
+    <!-- Advanced 3D Particle Effect Script -->
+    <script src="./js/advanced-particle-effect.js"></script>
+    
+    <!-- JavaScript -->
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.querySelector('html');
+        const body = document.querySelector('body');
+        
+        // Check for saved theme preference or respect OS preference
+        const savedTheme = localStorage.getItem('theme');
+        const osPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && osPrefersDark)) {
+            html.setAttribute('data-theme', 'dark');
+            body.classList.add('dark');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+            html.setAttribute('data-theme', 'light');
+            body.classList.remove('dark');
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            if (html.getAttribute('data-theme') === 'light') {
+                html.setAttribute('data-theme', 'dark');
+                body.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                html.setAttribute('data-theme', 'light');
+                body.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
+        
+        // Smooth scrolling for anchor links with easing
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const targetPosition = target.offsetTop - 80;
+                    const startPosition = window.pageYOffset;
+                    const distance = targetPosition - startPosition;
+                    const duration = 1000; // milliseconds
+                    let start = null;
+
+                    // Easing function (easeInOutCubic)
+                    const easeInOutCubic = function(t) {
+                        return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+                    };
+
+                    const animation = function(currentTime) {
+                        if (start === null) start = currentTime;
+                        const timeElapsed = currentTime - start;
+                        const progress = Math.min(timeElapsed / duration, 1);
+                        const ease = easeInOutCubic(progress);
+                        window.scrollTo(0, startPosition + (distance * ease));
+                        
+                        if (progress < 1) {
+                            window.requestAnimationFrame(animation);
+                        }
+                    };
+
+                    window.requestAnimationFrame(animation);
+                }
+            });
+        });
+        
+        // Staggered animations for profile cards
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add fade-in animation to sections
+            const sections = document.querySelectorAll('section');
+            sections.forEach((section, index) => {
+                section.classList.add('fade-in');
+                if (index > 0) {
+                    section.classList.add(`fade-in-delay-${index}`);
+                }
+            });
+            
+            // Staggered animation for profile cards
+            const profileCards = document.querySelectorAll('.profile-card');
+            profileCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('appear');
+                }, 150 * index);
+            });
+        });
+        
+        // Reduce motion for users who prefer it
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        if (prefersReducedMotion.matches) {
+            document.body.classList.add('reduce-motion');
+        }
+    </script>
+</body>
+</html>
